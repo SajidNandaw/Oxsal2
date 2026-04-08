@@ -4,7 +4,17 @@ require_once __DIR__ . "/../../config/database.php";
 
 checkRole('admin');
 
-$query = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER BY id DESC");
+$search = $_GET['search'] ?? '';
+
+if(!empty($search)){
+    $search = mysqli_real_escape_string($conn, $search);
+    $query = mysqli_query($conn, "SELECT * FROM users 
+        WHERE role='user' 
+        AND (name LIKE '%$search%' OR email LIKE '%$search%')
+        ORDER BY id DESC");
+}else{
+    $query = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER BY id DESC");
+}
 
 if (!$query) {
     die("Query Error: " . mysqli_error($conn));
@@ -204,7 +214,9 @@ th{background:#e5ded5}
 
 <div class="header-card">
     <div class="search-box">
-        <input type="text" placeholder="Cari User...">
+        <form method="GET">
+            <input type="text" name="search" placeholder="Cari User..." value="<?= $_GET['search'] ?? '' ?>">
+        </form>
     </div>
 </div>
 
@@ -216,6 +228,7 @@ th{background:#e5ded5}
 <th>Aksi</th>
 </tr>
 
+<?php if(mysqli_num_rows($query) > 0): ?>
 <?php while($row = mysqli_fetch_assoc($query)) : ?>
 <tr>
 <td><?= $row['name']; ?></td>
@@ -241,6 +254,11 @@ th{background:#e5ded5}
 </td>
 </tr>
 <?php endwhile; ?>
+<?php else: ?>
+<tr>
+<td colspan="4" style="text-align:center;">User tidak ditemukan</td>
+</tr>
+<?php endif; ?>
 
 </table>
 

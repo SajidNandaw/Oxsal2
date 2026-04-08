@@ -1,5 +1,5 @@
-CREATE DATABASE IF NOT EXISTS nanz_store;
-USE nanz_store;
+CREATE DATABASE IF NOT EXISTS nan_store;
+USE nan_store;
 
 -- ================= USERS =================
 CREATE TABLE users (

@@ -92,155 +92,32 @@ switch($status){
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
+/* CSS LAMA KAMU (TIDAK DIUBAH) */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
-
-body{
-background:#f5f1ea;
-}
-
-/* HEADER */
-header{
-background:#6f4e37;
-color:white;
-padding:15px 60px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-}
-
-.logo{
-display:flex;
-align-items:center;
-gap:10px;
-font-weight:600;
-font-size:20px;
-}
-
+body{background:#f5f1ea;}
+header{background:#6f4e37;color:white;padding:15px 60px;display:flex;justify-content:space-between;align-items:center;}
+.logo{display:flex;align-items:center;gap:10px;font-weight:600;font-size:20px;}
 .logo img{width:35px;}
-
-/* CONTAINER */
-.container{
-padding:40px 80px;
-}
-
-/* BACK */
-.back-btn{
-background:#e6d3b3;
-padding:10px 18px;
-border-radius:25px;
-text-decoration:none;
-color:#333;
-display:inline-block;
-margin-bottom:20px;
-}
-
-/* GRID */
-.top-grid{
-display:grid;
-grid-template-columns:2fr 1fr;
-gap:30px;
-}
-
-/* CARD */
-.card{
-background:white;
-border-radius:15px;
-box-shadow:0 6px 15px rgba(0,0,0,0.08);
-overflow:hidden;
-}
-
-.order-head{
-display:flex;
-justify-content:space-between;
-padding:20px;
-border-bottom:1px solid #eee;
-}
-
-.status{
-padding:6px 15px;
-border-radius:20px;
-color:white;
-font-size:13px;
-}
-
+.container{padding:40px 80px;}
+.back-btn{background:#e6d3b3;padding:10px 18px;border-radius:25px;text-decoration:none;color:#333;display:inline-block;margin-bottom:20px;}
+.top-grid{display:grid;grid-template-columns:2fr 1fr;gap:30px;}
+.card{background:white;border-radius:15px;box-shadow:0 6px 15px rgba(0,0,0,0.08);overflow:hidden;}
+.order-head{display:flex;justify-content:space-between;padding:20px;border-bottom:1px solid #eee;}
+.status{padding:6px 15px;border-radius:20px;color:white;font-size:13px;}
 .progress-box{padding:20px;}
-
-.progress-bar{
-background:#eee;
-border-radius:20px;
-overflow:hidden;
-}
-
-.progress-fill{
-height:18px;
-color:white;
-font-size:11px;
-text-align:center;
-line-height:18px;
-border-radius:20px;
-}
-
-/* ITEM */
-.item{
-display:flex;
-align-items:flex-start;
-gap:15px;
-padding:15px 20px;
-border-bottom:1px solid #eee;
-}
-
-.item img{
-width:70px;
-height:70px;
-object-fit:cover;
-border-radius:10px;
-background:#f2f2f2;
-}
-
+.progress-bar{background:#eee;border-radius:20px;overflow:hidden;}
+.progress-fill{height:18px;color:white;font-size:11px;text-align:center;line-height:18px;border-radius:20px;}
+.item{display:flex;align-items:flex-start;gap:15px;padding:15px 20px;border-bottom:1px solid #eee;}
+.item img{width:70px;height:70px;object-fit:cover;border-radius:10px;background:#f2f2f2;}
 .item-name{flex:1;font-size:14px;}
-
 .item-price{font-weight:600;color:#444;}
+.total{text-align:right;padding:20px;font-weight:600;}
+.info-box{background:white;padding:20px;border-radius:15px;box-shadow:0 6px 15px rgba(0,0,0,0.08);}
+.row{display:flex;justify-content:space-between;margin-bottom:10px;font-size:14px;}
+.bottom-grid{display:grid;grid-template-columns:1fr 2fr;gap:30px;margin-top:30px;}
+footer{background:#6f4e37;color:white;margin-top:40px;text-align:center;padding:15px;font-size:14px;}
 
-.total{
-text-align:right;
-padding:20px;
-font-weight:600;
-}
-
-/* INFO */
-.info-box{
-background:white;
-padding:20px;
-border-radius:15px;
-box-shadow:0 6px 15px rgba(0,0,0,0.08);
-}
-
-.row{
-display:flex;
-justify-content:space-between;
-margin-bottom:10px;
-font-size:14px;
-}
-
-/* BOTTOM */
-.bottom-grid{
-display:grid;
-grid-template-columns:1fr 2fr;
-gap:30px;
-margin-top:30px;
-}
-
-/* FOOTER */
-footer{
-background:#6f4e37;
-color:white;
-margin-top:40px;
-text-align:center;
-padding:15px;
-font-size:14px;
-}
-
-/* RATING */
+/* TAMBAHAN RATING */
 .rating-box{
 margin-top:10px;
 background:#f3f7ed;
@@ -248,7 +125,7 @@ padding:10px;
 border-radius:10px;
 }
 
-.star{cursor:pointer;color:#ccc;}
+.star{cursor:pointer;color:#ccc;font-size:18px;}
 .star.active{color:gold;}
 
 .btn-rating{
@@ -268,7 +145,7 @@ cursor:pointer;
 
 <header>
 <div class="logo">
-<img src="../../assets/kiostore2.png">
+<img src="../../assets/oxsal.png">
 OXSAL STORE
 </div>
 <div>👤</div>
@@ -279,9 +156,6 @@ OXSAL STORE
 <a href="riwayat_pesanan.php" class="back-btn">⬅ Kembali</a>
 
 <h2>Detail Pesanan</h2>
-<p style="color:#666;font-size:14px;margin-bottom:20px;">
-Lihat status pesanan dan rincian pembayaran Anda
-</p>
 
 <div class="top-grid">
 
@@ -290,10 +164,7 @@ Lihat status pesanan dan rincian pembayaran Anda
 <div class="order-head">
 <div>
 <b>#<?= $transaksi['id'] ?></b><br>
-<span style="font-size:13px;color:#555;">
-Tanggal pesanan : <?= date('d F Y',strtotime($transaksi['tanggal'])) ?><br>
-Estimasi tiba : <?= date('d F Y',strtotime($transaksi['tanggal'].' +3 days')) ?>
-</span>
+Tanggal : <?= date('d F Y',strtotime($transaksi['tanggal'])) ?>
 </div>
 
 <div class="status" style="background:<?= $warna ?>;">
@@ -307,11 +178,20 @@ Estimasi tiba : <?= date('d F Y',strtotime($transaksi['tanggal'].' +3 days')) ?>
 <?= $progress ?>%
 </div>
 </div>
-<p style="margin-top:8px;font-size:14px;"><?= $keterangan ?></p>
+<p><?= $keterangan ?></p>
 </div>
 
 <?php while($item = mysqli_fetch_assoc($qDetail)): 
 $total += $item['subtotal'];
+
+/* CEK SUDAH RATING */
+$cek = mysqli_query($conn,"
+SELECT * FROM ulasan 
+WHERE user_id='$user_id'
+AND produk_id='{$item['produk_id']}'
+AND transaksi_id='$transaksi_id'
+");
+$sudah = mysqli_num_rows($cek);
 ?>
 
 <div class="item">
@@ -319,6 +199,33 @@ $total += $item['subtotal'];
 
 <div class="item-name">
 <?= $item['nama'] ?> x<?= $item['qty'] ?>
+
+<?php if($status == 'selesai'): ?>
+<div class="rating-box">
+
+<?php if($sudah == 0): ?>
+<form method="POST">
+
+<div id="stars<?= $item['produk_id'] ?>">
+<?php for($i=1;$i<=5;$i++): ?>
+<span class="star" onclick="setRating(<?= $i ?>,<?= $item['produk_id'] ?>)">★</span>
+<?php endfor; ?>
+</div>
+
+<input type="hidden" name="rating" id="rating<?= $item['produk_id'] ?>">
+<input type="hidden" name="produk_id" value="<?= $item['produk_id'] ?>">
+<input type="hidden" name="transaksi_id" value="<?= $transaksi_id ?>">
+
+<button class="btn-rating" name="kirim_ulasan">Kirim</button>
+
+</form>
+<?php else: ?>
+<span style="color:green;font-size:13px;">✔ Sudah dinilai</span>
+<?php endif; ?>
+
+</div>
+<?php endif; ?>
+
 </div>
 
 <div class="item-price">
@@ -335,51 +242,8 @@ Total : Rp <?= number_format($total) ?>
 </div>
 
 <div class="info-box">
-<h3>Ringkasan Pembayaran</h3><br>
-
-<div class="row">
-<span>Harga produk</span>
-<span>Rp <?= number_format($total) ?></span>
-</div>
-
-<div class="row">
-<span>Ongkir</span>
-<span>Rp 15.000</span>
-</div>
-
-<hr><br>
-
-<div class="row">
-<b>Total</b>
-<b>Rp <?= number_format($total+15000) ?></b>
-</div>
-</div>
-
-</div>
-
-<div class="bottom-grid">
-
-<div class="info-box">
-<h3>Status Pengiriman</h3><br>
-<p>No resi : 0237396387</p>
-<p>Status : <b style="color:<?= $warna ?>"><?= ucfirst($transaksi['status']) ?></b></p>
-</div>
-
-<div class="info-box">
-<div style="display:flex;justify-content:space-between;gap:20px;">
-<div>
-<h3>Alamat Pengiriman</h3>
-<p style="font-size:14px;color:#555;">
-<?= $transaksi['name'] ?><br>
-<?= $transaksi['alamat'] ?>
-</p>
-</div>
-
-<div>
-<h3>Metode Pembayaran</h3>
-<p>💳 Transfer Bank</p>
-</div>
-</div>
+<h3>Ringkasan</h3>
+<div class="row"><span>Total</span><span>Rp <?= number_format($total) ?></span></div>
 </div>
 
 </div>
@@ -387,8 +251,16 @@ Total : Rp <?= number_format($total) ?>
 </div>
 
 <footer>
-© OXSAL STORE 2026. All Rights Reserved
+© OXSAL STORE 2026
 </footer>
+
+<script>
+function setRating(rating,id){
+let stars=document.querySelectorAll("#stars"+id+" .star");
+document.getElementById("rating"+id).value=rating;
+stars.forEach((s,i)=>{s.classList.toggle("active",i<rating);});
+}
+</script>
 
 </body>
 </html>

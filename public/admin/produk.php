@@ -4,7 +4,17 @@ require_once __DIR__ . "/../../config/database.php";
 
 checkRole('admin');
 
-$query = mysqli_query($conn, "SELECT * FROM produk ORDER BY id DESC");
+$search = $_GET['search'] ?? '';
+
+if(!empty($search)){
+    $search = mysqli_real_escape_string($conn, $search);
+    $query = mysqli_query($conn, "SELECT * FROM produk 
+        WHERE nama LIKE '%$search%' 
+        ORDER BY id DESC");
+}else{
+    $query = mysqli_query($conn, "SELECT * FROM produk ORDER BY id DESC");
+}
+
 if (!$query) {
     die("Query Error: " . mysqli_error($conn));
 }
@@ -272,7 +282,7 @@ tr:last-child{
 
     <div class="profile">
         <a href="../logout.php" class="logout-btn">Log out</a>
-        <span>Halo, Admin</span>
+        <span>Halo, Admin 👋</span>
         <div class="profile-circle">AD</div>
     </div>
 </div>
@@ -280,7 +290,9 @@ tr:last-child{
 <div class="product-card">
 
     <div class="header-card">
-        <input type="text" class="search-box" placeholder="Cari Produk...">
+        <form method="GET">
+            <input type="text" name="search" class="search-box" placeholder="Cari Produk..." value="<?= $_GET['search'] ?? '' ?>">
+        </form>
         <a href="tambah-produk.php" class="btn-add">Tambah Produk +</a>
     </div>
 
@@ -292,6 +304,7 @@ tr:last-child{
             <th>Action</th>
         </tr>
 
+        <?php if(mysqli_num_rows($query) > 0): ?>
         <?php while($row = mysqli_fetch_assoc($query)) : ?>
         <tr>
             <td>
@@ -315,6 +328,11 @@ tr:last-child{
             </td>
         </tr>
         <?php endwhile; ?>
+        <?php else: ?>
+        <tr>
+            <td colspan="4" style="text-align:center;">Produk tidak ditemukan</td>
+        </tr>
+        <?php endif; ?>
 
     </table>
 

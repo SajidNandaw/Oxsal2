@@ -15,6 +15,18 @@ if (!isset($_SESSION['login']) || $_SESSION['login'] !== true) {
 
 /*
 |--------------------------------------------------------------------------
+| CEK STATUS AKUN (AKTIF / NONAKTIF)
+|--------------------------------------------------------------------------
+*/
+if (!isset($_SESSION['status']) || $_SESSION['status'] !== 'aktif') {
+    // Hancurkan session kalau status tidak aktif
+    session_destroy();
+    header("Location: ../login.php?error=akun_nonaktif");
+    exit;
+}
+
+/*
+|--------------------------------------------------------------------------
 | FUNCTION CEK ROLE (SUPPORT MULTIPLE ROLE)
 |--------------------------------------------------------------------------
 */

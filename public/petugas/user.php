@@ -4,7 +4,17 @@ require_once __DIR__ . "/../../config/database.php";
 
 checkRole('petugas');
 
-$query = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER BY id DESC");
+$search = $_GET['search'] ?? '';
+
+if(!empty($search)){
+    $search = mysqli_real_escape_string($conn, $search);
+    $query = mysqli_query($conn, "SELECT * FROM users 
+        WHERE role='user' 
+        AND (name LIKE '%$search%' OR email LIKE '%$search%')
+        ORDER BY id DESC");
+}else{
+    $query = mysqli_query($conn, "SELECT * FROM users WHERE role='user' ORDER BY id DESC");
+}
 
 if (!$query) {
     die("Query Error: " . mysqli_error($conn));
@@ -106,6 +116,10 @@ body{display:flex;background:#d9d4cc}
     margin-bottom:20px;
 }
 
+.search-box form{
+    width:100%;
+}
+
 .search-box input{
     padding:10px 15px;
     border-radius:10px;
@@ -194,8 +208,8 @@ th{background:#e5ded5}
     <h2>Manajemen User</h2>
     <div class="profile">
         <a href="../logout.php" class="logout-btn">Logout</a>
-        <span>Halo, Admin 👋</span>
-        <div class="profile-circle">AD</div>
+        <span>Halo, Petugas 👋</span>
+        <div class="profile-circle">PT</div>
     </div>
 </div>
 
@@ -203,7 +217,9 @@ th{background:#e5ded5}
 
 <div class="header-card">
     <div class="search-box">
-        <input type="text" placeholder="Cari User...">
+        <form method="GET">
+            <input type="text" name="search" placeholder="Cari User..." value="<?= $_GET['search'] ?? '' ?>">
+        </form>
     </div>
 </div>
 

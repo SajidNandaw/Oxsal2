@@ -4,7 +4,16 @@ require_once __DIR__ . "/../../config/database.php";
 
 checkRole('user');
 
-$query = mysqli_query($conn, "SELECT * FROM produk ORDER BY id DESC");
+$search = $_GET['search'] ?? '';
+
+if(!empty($search)){
+    $search = mysqli_real_escape_string($conn, $search);
+    $query = mysqli_query($conn, "SELECT * FROM produk 
+        WHERE nama LIKE '%$search%' 
+        ORDER BY id DESC");
+}else{
+    $query = mysqli_query($conn, "SELECT * FROM produk ORDER BY id DESC");
+}
 ?>
 
 <!DOCTYPE html>
@@ -47,7 +56,7 @@ font-size:20px;
 
 .logo img{
 height:35px;
-width:auto; /* ✅ biar gak gepeng & gak bulat */
+width:auto;
 }
 
 /* SEARCH */
@@ -185,7 +194,6 @@ font-size:13px;
 margin-bottom:6px;
 }
 
-/* LOGO FOOTER */
 .footer-logo{
 display:flex;
 align-items:center;
@@ -196,7 +204,7 @@ font-weight:700;
 
 .footer-logo img{
 height:40px;
-width:auto; /* ✅ tidak bulat */
+width:auto;
 }
 
 .footer-bottom{
@@ -228,7 +236,9 @@ OXSAL STORE
 </div>
 
 <div class="search">
-<input type="text" placeholder="Cari di Oxsal Store">
+<form method="GET">
+<input type="text" name="search" placeholder="Cari di Oxsal Store" value="<?= $_GET['search'] ?? '' ?>">
+</form>
 </div>
 
 <div class="icons">
@@ -287,7 +297,7 @@ if($jual >= 1000){
 
 <?php endwhile; ?>
 <?php else: ?>
-<p style="padding:40px;">Produk belum tersedia.</p>
+<p style="padding:40px;">Produk tidak ditemukan.</p>
 <?php endif; ?>
 
 </div>

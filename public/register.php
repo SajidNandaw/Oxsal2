@@ -48,7 +48,7 @@ body{
     height:100vh;
 }
 
-/* ================= LEFT (FORM) ================= */
+/* LEFT */
 .left{
     width:55%;
     display:flex;
@@ -88,13 +88,6 @@ input{
     border-radius:15px;
     border:1px solid #333;
     background:#f2f2f2;
-    font-size:15px;
-}
-
-input:focus{
-    outline:none;
-    border:1px solid #000;
-    background:#fff;
 }
 
 button{
@@ -107,11 +100,24 @@ button{
     font-weight:600;
     color:white;
     cursor:pointer;
+    margin-bottom:10px;
+}
+
+/* TOMBOL KEMBALI */
+.back-btn{
+    display:block;
+    text-align:center;
+    padding:14px;
+    border-radius:15px;
+    background:#eee;
+    text-decoration:none;
+    color:#333;
+    font-weight:500;
     transition:0.3s;
 }
 
-button:hover{
-    background:#684836;
+.back-btn:hover{
+    background:#ddd;
 }
 
 .error{
@@ -121,7 +127,6 @@ button:hover{
     border-radius:10px;
     margin-bottom:20px;
     text-align:center;
-    font-size:14px;
 }
 
 .success{
@@ -131,10 +136,9 @@ button:hover{
     border-radius:10px;
     margin-bottom:20px;
     text-align:center;
-    font-size:14px;
 }
 
-/* ================= RIGHT (BRANDING) ================= */
+/* RIGHT */
 .right{
     width:45%;
     display:flex;
@@ -146,37 +150,19 @@ button:hover{
 
 .right h1{
     font-size:48px;
-    letter-spacing:3px;
     color:#a67c00;
-    margin-bottom:30px;
 }
 
 .right img{
     width:260px;
-    margin-bottom:30px;
 }
 
-.tagline{
-    font-size:22px;
-    font-style:italic;
-    color:#666;
-    margin-bottom:15px;
-}
-
-.sub-tagline{
-    font-size:18px;
-    color:#ff5a00;
-}
-
-/* ================= RESPONSIVE ================= */
 @media(max-width:900px){
     .container{
         flex-direction:column;
     }
     .left, .right{
         width:100%;
-        height:auto;
-        padding:40px 20px;
     }
 }
 </style>
@@ -186,36 +172,38 @@ button:hover{
 
 <div class="container">
 
-    <!-- LEFT : REGISTER FORM -->
-    <div class="left">
-        <div class="card">
-            <h2>Daftar</h2>
-            <p>Sudah punya akun Oxsal Store? <a href="login.php">Login disini</a></p>
+<div class="left">
+<div class="card">
 
-            <?php if($error): ?>
-                <div class="error"><?= $error ?></div>
-            <?php endif; ?>
+<h2>Daftar</h2>
+<p>Sudah punya akun? <a href="login.php">Login</a></p>
 
-            <?php if($success): ?>
-                <div class="success"><?= $success ?></div>
-            <?php endif; ?>
+<?php if($error): ?>
+<div class="error"><?= $error ?></div>
+<?php endif; ?>
 
-            <form method="post">
-                <input type="text" name="name" placeholder="Masukkan nama anda" required>
-                <input type="email" name="email" placeholder="Masukkan email anda" required>
-                <input type="password" name="password" placeholder="Masukkan password anda" required>
-                <button type="submit">Daftar</button>
-            </form>
-        </div>
-    </div>
+<?php if($success): ?>
+<div class="success"><?= $success ?></div>
+<?php endif; ?>
 
-    <!-- RIGHT : BRANDING -->
-    <div class="right">
-        <h1>OXSAL STORE</h1>
-        <img src="../assets/oxsal.png" alt="Logo Oxsal">
-        <div class="tagline">Belanja Fashion Mudah dan Berkelas</div>
-        <div class="sub-tagline">Buat akunmu dan mulai perjalanan stylish hari ini.</div>
-    </div>
+<form method="post">
+<input type="text" name="name" placeholder="Nama" required>
+<input type="email" name="email" placeholder="Email" required>
+<input type="password" name="password" placeholder="Password" required>
+<button type="submit">Daftar</button>
+</form>
+
+<!-- ✅ TOMBOL KATALOG -->
+<a href="katalog.php" class="back-btn">← Kembali ke Katalog</a>
+
+</div>
+</div>
+
+<div class="right">
+<h1>OXSAL STORE</h1>
+<img src="../assets/oxsal.png">
+<p>Mulai perjalanan stylish kamu di sini</p>
+</div>
 
 </div>
 

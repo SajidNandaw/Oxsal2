@@ -149,7 +149,7 @@ padding:15px;
 
 <header>
 <div class="logo">
-<img src="../../assets/kiostore2.png">
+<img src="../../assets/oxsal.png">
 OXSAL STORE
 </div>
 
@@ -158,12 +158,12 @@ OXSAL STORE
 </div>
 
 <div class="header-icons">
-<a href="keranjang-produk.php" class="cart-icon">🛒
+<a href="keranjang.php" class="cart-icon">🛒
 <?php if($totalCart > 0): ?>
 <span class="cart-badge"><?= $totalCart ?></span>
 <?php endif; ?>
 </a>
-<a href="profil.php" class="cart-icon">👤</a>
+<a href="profile.php" class="cart-icon">👤</a>
 </div>
 </header>
 
