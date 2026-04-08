@@ -2,7 +2,7 @@
 $host = "localhost";
 $user = "root";
 $pass = "";
-$db   = "nanz_store";
+$db   = "nan_store";
 
 $conn = mysqli_connect($host, $user, $pass, $db);
 
