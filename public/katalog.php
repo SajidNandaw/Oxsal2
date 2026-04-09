@@ -24,7 +24,6 @@ if (!empty($search)) {
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
-/* (SEMUA CSS KAMU — TIDAK DIUBAH) */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{background:#f5f1ec;}
 header{background:#6f4e37;padding:15px 60px;display:flex;align-items:center;justify-content:space-between;color:white;}
@@ -47,7 +46,11 @@ header{background:#6f4e37;padding:15px 60px;display:flex;align-items:center;just
 .card h3{font-size:14px;margin-bottom:5px;}
 .price{font-size:14px;font-weight:600;margin-bottom:5px;}
 .sold{font-size:12px;}
-.card-link{text-decoration:none;color:black;}
+.card-link{
+    text-decoration:none;
+    color:black;
+    display:block;
+}
 footer{background:#c19a6b;margin-top:40px;}
 .footer-top{display:grid;grid-template-columns:repeat(4,1fr);padding:40px 60px;gap:30px;}
 .footer-bottom{background:#6f4e37;color:white;text-align:center;padding:12px;font-size:13px;}
@@ -70,13 +73,8 @@ OXSAL STORE
 </div>
 
 <div class="icons">
-<?php if(isset($_SESSION['login']) && $_SESSION['login'] === true): ?>
-    <a href="keranjang.php">🛒</a>
-    <a href="profile.php">👤</a>
-<?php else: ?>
-    <a href="login.php">Masuk</a>
-    <a href="register.php">Daftar</a>
-<?php endif; ?>
+<a href="login.php">Masuk</a>
+<a href="register.php">Daftar</a>
 </div>
 
 </header>
@@ -86,25 +84,19 @@ OXSAL STORE
 <div class="hero-text">
 <h1>Gaya Kamu,<br>Pilihan Kamu</h1>
 <p>Oxsal Store menghadirkan fashion lokal dan streetwear berkualitas</p>
-<button>Belanja Sekarang</button>
+<button onclick="window.location.href='#produk'">Belanja Sekarang</button>
 </div>
 
 <img src="../assets/Group 3.png">
 </div>
 
 <!-- PRODUK -->
-<div class="products">
+<div class="products" id="produk">
 
 <?php if(mysqli_num_rows($query) > 0): ?>
 <?php while($row = mysqli_fetch_assoc($query)): ?>
 
-<?php if(isset($_SESSION['login']) && $_SESSION['login'] === true): ?>
-    <!-- ✅ SUDAH LOGIN -->
-    <a href="detail_produk.php?id=<?= $row['id']; ?>" class="card-link">
-<?php else: ?>
-    <!-- ❌ BELUM LOGIN (PAKSA KE LOGIN) -->
-    <a href="login.php?redirect=katalog" class="card-link">
-<?php endif; ?>
+<a href="login.php" class="card-link">
 
 <div class="card">
 
@@ -143,8 +135,8 @@ echo ($jual >= 1000) ? floor($jual/1000) . " Rb+" : $jual;
 <div class="footer-top">
 <div>
 <h3>Layanan</h3>
-<p><a href="tentang_kami.php">Tentang Kami</a></p>
-<p><a href="keranjang.php">Keranjang</a></p>
+<p><a href="login.php">Tentang Kami</a></p>
+<p><a href="login.php">Keranjang</a></p>
 </div>
 
 <div>
@@ -155,8 +147,8 @@ echo ($jual >= 1000) ? floor($jual/1000) . " Rb+" : $jual;
 
 <div>
 <h3>Bantuan</h3>
-<p><a href="#">Cara Belanja</a></p>
-<p><a href="#">Pembayaran</a></p>
+<p><a href="login.php">Cara Belanja</a></p>
+<p><a href="login.php">Pembayaran</a></p>
 </div>
 
 <div>
