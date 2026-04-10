@@ -50,7 +50,8 @@ WHERE detail_transaksi.transaksi_id='$transaksi_id'
 
 $total = 0;
 
-$status = strtolower($transaksi['status']);
+/* STATUS */
+$status = strtolower(trim($transaksi['status']));
 $warna = "#9e9e9e";
 
 if($status == "diproses") $warna = "#ffb74d";
@@ -58,30 +59,23 @@ elseif($status == "dikirim") $warna = "#64b5f6";
 elseif($status == "selesai") $warna = "#81c784";
 elseif($status == "dibatalkan") $warna = "#e57373";
 
+/* PROGRESS */
 $progress = 0;
 $keterangan = "";
 
 switch($status){
-    case "diproses": 
-        $progress=25; 
-        $keterangan="Pesanan Anda sedang diproses oleh penjual";
-    break;
-    case "dikirim": 
-        $progress=60; 
-        $keterangan="Pesanan sedang dalam perjalanan menuju alamat Anda";
-    break;
-    case "selesai": 
-        $progress=100; 
-        $keterangan="Pesanan telah diterima. Terima kasih telah berbelanja!";
-    break;
-    case "dibatalkan": 
-        $progress=100; 
-        $keterangan="Pesanan telah dibatalkan";
-    break;
-    default: 
-        $progress=10; 
-        $keterangan="Menunggu konfirmasi pembayaran";
+    case "pending": $progress=10; $keterangan="Menunggu pembayaran"; break;
+    case "diproses": $progress=40; $keterangan="Pesanan sedang diproses"; break;
+    case "dikirim": $progress=75; $keterangan="Pesanan dalam perjalanan"; break;
+    case "selesai": $progress=100; $keterangan="Pesanan telah diterima"; break;
+    case "dibatalkan": $progress=100; $keterangan="Pesanan dibatalkan"; break;
 }
+
+/* STEP SHOPEE */
+$step = 1;
+if($status == 'diproses') $step = 2;
+elseif($status == 'dikirim') $step = 3;
+elseif($status == 'selesai') $step = 4;
 ?>
 
 <!DOCTYPE html>
@@ -92,7 +86,6 @@ switch($status){
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
 
 <style>
-/* CSS LAMA KAMU (TIDAK DIUBAH) */
 *{margin:0;padding:0;box-sizing:border-box;font-family:'Poppins',sans-serif;}
 body{background:#f5f1ea;}
 header{background:#6f4e37;color:white;padding:15px 60px;display:flex;justify-content:space-between;align-items:center;}
@@ -104,40 +97,76 @@ header{background:#6f4e37;color:white;padding:15px 60px;display:flex;justify-con
 .card{background:white;border-radius:15px;box-shadow:0 6px 15px rgba(0,0,0,0.08);overflow:hidden;}
 .order-head{display:flex;justify-content:space-between;padding:20px;border-bottom:1px solid #eee;}
 .status{padding:6px 15px;border-radius:20px;color:white;font-size:13px;}
+
 .progress-box{padding:20px;}
 .progress-bar{background:#eee;border-radius:20px;overflow:hidden;}
-.progress-fill{height:18px;color:white;font-size:11px;text-align:center;line-height:18px;border-radius:20px;}
-.item{display:flex;align-items:flex-start;gap:15px;padding:15px 20px;border-bottom:1px solid #eee;}
-.item img{width:70px;height:70px;object-fit:cover;border-radius:10px;background:#f2f2f2;}
-.item-name{flex:1;font-size:14px;}
-.item-price{font-weight:600;color:#444;}
-.total{text-align:right;padding:20px;font-weight:600;}
-.info-box{background:white;padding:20px;border-radius:15px;box-shadow:0 6px 15px rgba(0,0,0,0.08);}
-.row{display:flex;justify-content:space-between;margin-bottom:10px;font-size:14px;}
-.bottom-grid{display:grid;grid-template-columns:1fr 2fr;gap:30px;margin-top:30px;}
-footer{background:#6f4e37;color:white;margin-top:40px;text-align:center;padding:15px;font-size:14px;}
-
-/* TAMBAHAN RATING */
-.rating-box{
-margin-top:10px;
-background:#f3f7ed;
-padding:10px;
-border-radius:10px;
-}
-
-.star{cursor:pointer;color:#ccc;font-size:18px;}
-.star.active{color:gold;}
-
-.btn-rating{
-margin-top:6px;
-padding:6px 12px;
-border:none;
-border-radius:8px;
-background:#4caf50;
+.progress-fill{
+height:18px;
 color:white;
-font-size:12px;
-cursor:pointer;
+font-size:11px;
+text-align:center;
+line-height:18px;
+border-radius:20px;
+transition:0.6s ease;
 }
+
+/* 🔥 SHOPEE TRACKING */
+.tracking-shopee{
+display:flex;
+justify-content:space-between;
+margin-top:25px;
+position:relative;
+}
+
+.tracking-shopee::before{
+content:'';
+position:absolute;
+top:18px;
+left:0;
+right:0;
+height:4px;
+background:#ddd;
+z-index:0;
+}
+
+.step{
+text-align:center;
+width:100%;
+position:relative;
+z-index:1;
+}
+
+.circle{
+width:35px;
+height:35px;
+border-radius:50%;
+background:#ccc;
+color:white;
+display:flex;
+align-items:center;
+justify-content:center;
+margin:0 auto 8px;
+font-size:14px;
+font-weight:bold;
+}
+
+.step.active .circle{background:#2196f3;}
+.step.done .circle{background:#4caf50;}
+
+.step p{font-size:12px;color:#555;}
+
+.item{display:flex;gap:15px;padding:15px 20px;border-bottom:1px solid #eee;}
+.item img{width:70px;border-radius:10px;}
+.item-name{flex:1;}
+.item-price{font-weight:600;}
+.total{text-align:right;padding:20px;font-weight:600;}
+.info-box{background:white;padding:20px;border-radius:15px;}
+.row{display:flex;justify-content:space-between;margin-bottom:10px;}
+
+.rating-box{margin-top:10px;background:#f3f7ed;padding:10px;border-radius:10px;}
+.star{cursor:pointer;color:#ccc;}
+.star.active{color:gold;}
+.btn-rating{margin-top:6px;padding:6px 12px;border:none;border-radius:8px;background:#4caf50;color:white;}
 </style>
 </head>
 
@@ -148,7 +177,6 @@ cursor:pointer;
 <img src="../../assets/oxsal.png">
 OXSAL STORE
 </div>
-<div>👤</div>
 </header>
 
 <div class="container">
@@ -168,7 +196,7 @@ Tanggal : <?= date('d F Y',strtotime($transaksi['tanggal'])) ?>
 </div>
 
 <div class="status" style="background:<?= $warna ?>;">
-<?= ucfirst($transaksi['status']) ?>
+<?= ucfirst($status) ?>
 </div>
 </div>
 
@@ -178,13 +206,39 @@ Tanggal : <?= date('d F Y',strtotime($transaksi['tanggal'])) ?>
 <?= $progress ?>%
 </div>
 </div>
+
 <p><?= $keterangan ?></p>
+
+<!-- 🔥 TRACKING SHOPEE -->
+<div class="tracking-shopee">
+
+<div class="step <?= ($step>=1?'done':'') ?>">
+<div class="circle">1</div>
+<p>Dibuat</p>
+</div>
+
+<div class="step <?= ($step==2?'active':'') ?> <?= ($step>2?'done':'') ?>">
+<div class="circle">2</div>
+<p>Diproses</p>
+</div>
+
+<div class="step <?= ($step==3?'active':'') ?> <?= ($step>3?'done':'') ?>">
+<div class="circle">3</div>
+<p>Dikirim</p>
+</div>
+
+<div class="step <?= ($step==4?'active done':'') ?>">
+<div class="circle">4</div>
+<p>Selesai</p>
+</div>
+
+</div>
+
 </div>
 
 <?php while($item = mysqli_fetch_assoc($qDetail)): 
 $total += $item['subtotal'];
 
-/* CEK SUDAH RATING */
 $cek = mysqli_query($conn,"
 SELECT * FROM ulasan 
 WHERE user_id='$user_id'
@@ -205,7 +259,6 @@ $sudah = mysqli_num_rows($cek);
 
 <?php if($sudah == 0): ?>
 <form method="POST">
-
 <div id="stars<?= $item['produk_id'] ?>">
 <?php for($i=1;$i<=5;$i++): ?>
 <span class="star" onclick="setRating(<?= $i ?>,<?= $item['produk_id'] ?>)">★</span>
@@ -217,10 +270,9 @@ $sudah = mysqli_num_rows($cek);
 <input type="hidden" name="transaksi_id" value="<?= $transaksi_id ?>">
 
 <button class="btn-rating" name="kirim_ulasan">Kirim</button>
-
 </form>
 <?php else: ?>
-<span style="color:green;font-size:13px;">✔ Sudah dinilai</span>
+<span style="color:green;">✔ Sudah dinilai</span>
 <?php endif; ?>
 
 </div>
@@ -249,10 +301,6 @@ Total : Rp <?= number_format($total) ?>
 </div>
 
 </div>
-
-<footer>
-© OXSAL STORE 2026
-</footer>
 
 <script>
 function setRating(rating,id){
